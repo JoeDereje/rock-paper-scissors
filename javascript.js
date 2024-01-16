@@ -25,18 +25,51 @@ function singleRoundRPS(playerSelection, computerSelection) {
     //a variable to store the lower case of user selection.
     let lcPlayerSelection = playerSelection.toLowerCase();
     
-    let userWin = "You win, Congratulation.";
-    let compWin = "Computer win";
-    let draw = "It's a draw, please play again!";
+    let uWin = "win";
+    let cWin = "lose";
+    let draw = "draw";
 
     //Game logic to determine the winner
     if(lcPlayerSelection == "rock" && computerSelection == "scissors" || lcPlayerSelection == "paper" && computerSelection == "rock" || lcPlayerSelection == "scissors" && computerSelection == "paper") {
-        return userWin;
+        return uWin;
     }
     else if(lcPlayerSelection == "rock" && computerSelection == "paper" || lcPlayerSelection == "paper" && computerSelection == "scissors" || lcPlayerSelection == "scissors" && computerSelection == "rock") {
-        return compWin;
+        return cWin;
     }
     else {
         return draw;
+        //a function call in case of Ties to re-play the round.
+        //singleRoundRPS(lcPlayerSelection, computerSelection);
+    }
+}
+//Determine the winner of the best-of-five game
+function game() {
+    let userWin = 0;
+    let computerWin = 0;
+    let roundsToWin = 3;
+
+    let playerInput = prompt("Please enter you choice");
+
+    for(let i=1; i<=5; i++) {
+        if(singleRoundRPS(playerInput, getComputerChoice()) == "win") {
+            userWin++;
+            console.log("You win!");
+        }
+        else if(singleRoundRPS(playerInput, getComputerChoice()) == "lose") {
+            computerWin++;
+            console.log("You lose!");
+        }
+        else {
+            console.log("It's a draw!");
+        }
+    }
+    if(userWin > computerWin) {
+        console.log("Congratulations! You win the game.");
+    }
+    else if(userWin < computerWin) {
+        console.log("Sorry buddy, You lose!");
+    }
+    else {
+        console.log("It's a draw!");
     }
 }
